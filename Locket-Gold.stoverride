@@ -1,0 +1,26 @@
+name: Locket Gold
+desc: Premium
+icon: https://play-lh.googleusercontent.com/eRZLg00mAQGayCrFjDBklPIpW3qFHcmUs8PUQA4z7hVe-cDKMcRqecVHONAIexJGJZM
+http: 
+
+header_rewrites:
+- delete:
+    match: ^https?://api.revenuecat.com/.+/(receipts$|subscribers/?(.*?)*$)
+    name: "X-RevenueCat-ETag"
+    type: request
+- delete:
+    match: ^https?://api.revenuecat.com/.+/(receipts$|subscribers/?(.*?)*$)
+    name: "x-revenuecat-etag"
+    type: request
+script:
+    match: ^https:\/\/api\.revenuecat\.com\/.+\/(receipts$|subscribers\/[^/]+$)
+    name: "Locket_Gold_AQVPN"
+    require-body: true
+    max-size: -1
+    binary-mode: true
+script-providers:
+  "Locket_Gold_AQVPN":
+    url: https://download.aqvpn.eu.org/script/apptesters/Locket_Gold.js
+    interval: 86400
+mitm:
+  - "api.revenuecat.com"
