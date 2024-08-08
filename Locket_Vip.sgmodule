@@ -1,0 +1,10 @@
+#!name=𝐋𝐨𝐜𝐤𝐞𝐭 𝐆𝐨𝐥𝐝
+#!desc=𝐁𝐲: 𝐍𝐨𝐛𝐢𝐭𝐚 (𝐌𝐎𝐃 𝐂𝐒𝐀𝟒𝐆)
+
+[Script]
+# ～ RevenueCat
+RevenueCatVip = type=http-response, pattern=^https:\/\/api\.revenuecat\.com\/.+\/(receipts$|subscribers\/[^/]+$), script-path=https://raw.githubusercontent.com/DungHoang120401/Nobita/CSA_Module/revenuecat.js, requires-body=true, max-size=-1, timeout=60
+RevenueCatDeleteHeader = type=http-request, pattern=^https:\/\/api\.revenuecat\.com\/.+\/(receipts|subscribers), script-path=https://raw.githubusercontent.com/DungHoang120401/Nobita/CSA_Module/deleteHeader.js, timeout=60
+
+[MITM]
+hostname = %APPEND% api.revenuecat.com
