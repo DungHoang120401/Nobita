@@ -1,6 +1,6 @@
 /***********************************
 
-> ScriptName        𝐑𝐞𝐯𝐞𝐧𝐮𝐞𝐂𝐚𝐭
+> ScriptName        𝐋𝐨𝐜𝐤𝐞𝐭 𝐆𝐨𝐥𝐝
 
 [rewrite_local]
 
@@ -13,11 +13,6 @@
 hostname=api.revenuecat.com
 
 ***********************************/
-
-
-
-
-// ========= 动态ID ========= //
 const mapping = {
   '%E8%BD%A6%E7%A5%A8%E7%A5%A8': ['vip+watch_vip'],
   'Locket' : ['Gold']
