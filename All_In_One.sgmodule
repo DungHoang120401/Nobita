@@ -1,5 +1,5 @@
 #!name=All In One
-#!desc=Unlock Premium
+#!desc=By: Nobita
 
 [Rule]
 AND,((DOMAIN-SUFFIX,googlevideo.com), (PROTOCOL,UDP)),REJECT
@@ -24,28 +24,30 @@ youtube.request = type=http-request,pattern=^https:\/\/youtubei\.googleapis\.com
 youtube.response = type=http-response,pattern=^https:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/(browse|next|player|search|reel\/reel_watch_sequence|guide|account\/get_setting|get_watch),requires-body=1,max-size=-1,binary-body-mode=1,engine={{{côngcụ}}},script-path=https://tnetz.pro/block/a.js,argument={"lyricLang":"{{{dịch}}}","captionLang":"{{{ngônngữdịchphụđề}}}","blockUpload":{{{chặnnúttảilên}}},"blockImmersive":{{{nútchọn}}},"debug":{{{bậtchếđộlỗi}}}}
 #************************************#
 
-#Nicegram
-#hostname = nicegram.cloud
-Nicegram = type=http-response,pattern=^https?:\/\/(nicegram\.cloud\/api\/v\d\/user\/info|restore-access\.indream\.app\/restoreAccess),requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/zozocao/SurgeLK/main/scripts/zozocao/Nicegram.js,script-update-interval=0
-
-#************************************#
 #SpotifyPremium
 #hostname = spclient.wg.spotify.com
 spotify-json = type=http-request,pattern=^https:\/\/spclient\.wg\.spotify\.com\/(artistview\/v1\/artist|album-entity-view\/v2\/album)\/,requires-body=0,script-path=https://raw.githubusercontent.com/app2smile/rules/master/js/spotify-json.js
 spotify-proto = type=http-response,pattern=^https:\/\/spclient\.wg\.spotify\.com\/(bootstrap\/v1\/bootstrap|user-customization-service\/v1\/customize)$,requires-body=1,binary-body-mode=1,max-size=0,script-path=https://raw.githubusercontent.com/app2smile/rules/master/js/spotify-proto.js,script-update-interval=0
-
 #************************************#
+
 #Revenuecat
 #hostname = api.revenuecat.com
 revenuecat = type=http-response, pattern=^https:\/\/api\.revenuecat\.com\/.+\/(receipts$|subscribers\/[^/]+$), script-path=https://raw.githubusercontent.com/DungHoang120401/Nobita/Module/Locket_Gold.js, requires-body=true, max-size=-1, timeout=60
 deleteHeader = type=http-request, pattern=^https:\/\/api\.revenuecat\.com\/.+\/(receipts|subscribers), script-path=https://raw.githubusercontent.com/DungHoang120401/Nobita/Module/LKG_delete_header.js, timeout=60
 #************************************#
+
+#Panel Network
+net-info-panel.js=script-path=https://raw.githubusercontent.com/lonely0811/olsd/main/net.js,type=generic,timeout=30
+ReloadProfile = type=generic,timeout=10,script-path= https://raw.githubusercontent.com/lonely0811/olsd/main/Reloadconfig.js ,argument=icon=square.and.arrow.down.fill&color=#f6c970
+NetSpeed = type=generic,script-path=https://raw.githubusercontent.com/lonely0811/olsd/main/netspeed.js,argument=title=NetSpeed&iconfast=bolt&iconmid=hare&iconslow=tortoise&colorlow=#06D6A0&colormid=#FFD166&colorhigh=#EF476F&mb=3
+#************************************#
+
 #Truecaller
 #hostname = premium*.truecaller.com
-Truecaller = type=http-response,pattern=^https://premium-(.+)\.truecaller\.com/v\d/(subscriptions|products\/apple),requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/zozocao/SurgeLK/main/scripts/zozocao/truecaller.js
+Truecaller = type=http-response,pattern=^https://premium-(.+)\.truecaller\.com/v\d/(subscriptions|products\/apple),requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/lonely0811/olsd/main/truecall.js
 
 [Map Local]
 ^https?:\/\/[\w-]+\.googlevideo\.com\/initplayback.+&oad data-type=text data=""
 
 [MITM]
-hostname = %APPEND% premium*.truecaller.com, nicegram.cloud, sub.store, api.revenuecat.com, spclient.wg.spotify.com, *.googlevideo.com, youtubei.googleapis.com
+hostname = %APPEND% premium*.truecaller.com, sub.store, api.revenuecat.com, spclient.wg.spotify.com, *.googlevideo.com, youtubei.googleapis.com
