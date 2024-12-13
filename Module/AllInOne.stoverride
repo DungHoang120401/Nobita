@@ -73,10 +73,10 @@ script-providers:
     url: https://raw.githubusercontent.com/sub-store-org/Sub-Store/release/cron-sync-artifacts.min.js
     interval: 86400
   Youtube1:
-    url: https://github.com/lonely0811/Surge/raw/main/js/youtube.response.preview.js
+    url: https://raw.githubusercontent.com/lonely0811/Surge/raw/main/js/youtube.response.preview.js
     interval: 86400
   Youtube2:
-    url: https://github.com/lonely0811/Surge/raw/main/js/youtube.request.preview.js
+    url: https://raw.githubusercontent.com/lonely0811/Surge/raw/main/js/youtube.request.preview.js
     interval: 86400
   Spotify1:
     url: https://raw.githubusercontent.com/app2smile/rules/master/js/spotify-json.js
