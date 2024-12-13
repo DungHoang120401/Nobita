@@ -14,8 +14,13 @@ http:
     - "api-mobile.soundcloud.com"
   script:
   #Sub-Store
+    - match: ^https?:\/\/sub\.store\/((download)|api\/(preview|sync|(utils\/node-info)))
+      name: SubStore1
+      type: request
+      require-body: true
+      timeout: 10
     - match: ^https?:\/\/sub\.store
-      name: Sub-Store
+      name: SubStore2
       type: request
       require-body: true
       timeout: 10
@@ -49,6 +54,12 @@ http:
       name: SoundCloudGo+
       type: response
       require-body: true
+      timeout: 10
+
+cron:
+  script:
+    - name: cron-sync-artifacts
+      cron: "55 23 * * *"
       timeout: 10
 
 script-providers:
