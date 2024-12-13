@@ -1,0 +1,49 @@
+#!name=𝐀𝐥𝐥 𝐈𝐧 𝐎𝐧𝐞
+#!desc=𝐁𝐲: 𝐍𝐨𝐛𝐢𝐭𝐚
+#!icon=https://cdn3.iconfinder.com/data/icons/rawan/512/King-1024.png
+
+[URL Rewrite]
+(^https?:\/\/[\w-]+\.googlevideo\.com\/(?!dclk_video_ads).+?)&ctier=L(&.+?),ctier,(.+) 302 $1$2$3
+^https?:\/\/[\w-]+\.googlevideo\.com\/(?!(dclk_video_ads|videoplayback\?)).+&oad reject-200
+^https?:\/\/(www|s)\.youtube\.com\/api\/stats\/ads reject-200
+^https?:\/\/(www|s)\.youtube\.com\/(pagead|ptracking) reject-200
+^https?:\/\/s\.youtube\.com\/api\/stats\/qoe\?adcontext reject-200
+
+[Script]
+
+#Sub-Store
+#hostname = sub.store
+http-request ^https?:\/\/sub\.store\/((download)|api\/(preview|sync|(utils\/node-info))) script-path=https://raw.githubusercontent.com/sub-store-org/Sub-Store/release/sub-store-1.min.js, requires-body=true, timeout=120, tag=Sub-Store Core
+http-request ^https?:\/\/sub\.store script-path=https://raw.githubusercontent.com/sub-store-org/Sub-Store/release/sub-store-0.min.js, requires-body=true, timeout=120, tag=Sub-Store Simple
+
+cron "55 23 * * *" script-path=https://raw.githubusercontent.com/sub-store-org/Sub-Store/release/cron-sync-artifacts.min.js, timeout=120, tag=Sub-Store Sync
+#************************************#
+
+#Youtube Premium
+#hostname = *.googlevideo.com, youtubei.googleapis.com
+http-request ^https?:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/(browse|next|player|reel\/reel_watch_sequence|get_watch) requires-body = 1,binary-body-mode=1,script-path=https://github.com/lonely0811/Surge/raw/main/js/youtube.request.preview.js
+http-response ^https?:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/(browse|next|player|search|reel\/reel_watch_sequence|guide|account\/get_setting|get_watch) requires-body = 1,binary-body-mode=1,script-path=https://github.com/lonely0811/Surge/raw/main/js/youtube.response.preview.js
+#************************************#
+
+#Spotify Premium
+#hostname = spclient.wg.spotify.com
+http-request ^https:\/\/spclient\.wg\.spotify\.com\/(artistview\/v1\/artist|album-entity-view\/v2\/album)\/,requires-body=0,script-path=https://raw.githubusercontent.com/app2smile/rules/master/js/spotify-json.js
+http-response ^https:\/\/spclient\.wg\.spotify\.com\/(bootstrap\/v1\/bootstrap|user-customization-service\/v1\/customize)$,requires-body=1,binary-body-mode=1,max-size=0,script-path=https://raw.githubusercontent.com/app2smile/rules/master/js/spotify-proto.js,script-update-interval=0
+#************************************#
+
+#SoundCloudGo+
+#hostname= api-mobile.soundcloud.com
+http-response https://api-mobile.soundcloud.com/configuration/ios script-path=https://raw.githubusercontent.com/Marol62926/MarScrpt/main/soundcloud.js,requires-body=1,max-size=0,tag=SoundCloud Go+
+#************************************#
+
+#Revenuecat
+#hostname = api.revenuecat.com
+http-response ^https:\/\/api\.revenuecat\.com\/.+\/(receipts$|subscribers\/[^/]+$), script-path=https://raw.githubusercontent.com/DungHoang120401/Nobita/refs/heads/main/Scripts/Locket_Gold.js, requires-body=true, max-size=-1, timeout=60
+http-request ^https:\/\/api\.revenuecat\.com\/.+\/(receipts|subscribers), script-path=https://raw.githubusercontent.com/DungHoang120401/Nobita/refs/heads/main/Scripts/LKG_delete_header.js, timeout=60
+#************************************#
+
+#Truecaller
+#hostname = premium*.truecaller.com
+http-response ^https://premium-(.+)\.truecaller\.com/v\d/(subscriptions|products\/apple),requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/DungHoang120401/Nobita/refs/heads/main/Scripts/TrueCaller.js
+[MITM]
+hostname = -redirector*.googlevideo.com,*.googlevideo.com,www.youtube.com,s.youtube.com,youtubei.googleapis.com, premium*.truecaller.com, sub.store, api.revenuecat.com, spclient.wg.spotify.com, api-mobile.soundcloud.com
