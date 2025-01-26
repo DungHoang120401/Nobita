@@ -54,7 +54,7 @@ Truecaller = type=http-response,pattern=^https://premium-(.+)\.truecaller\.com/v
 
 #CamScanner
 #hostname = ap*.intsig.net
-Camscanner = requires-body=1,script-path=https://github.com/DungHoang120401/Nobita/blob/main/Scripts/camscanner.js,type=http-response,pattern= https:\/\/(api|api-cs.*)\.intsig\.net\/purchase\/cs\/query_prop
+Camscanner = requires-body=1,script-path=https://raw.githubusercontent.com/DungHoang120401/Nobita/refs/heads/main/Scripts/camscanner.js,type=http-response,pattern= https:\/\/(api|api-cs.*)\.intsig\.net\/purchase\/cs\/query_prop
 
 [Map Local]
 ^https?:\/\/[\w-]+\.googlevideo\.com\/initplayback.+&oad data-type=text data=""
