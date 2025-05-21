@@ -1,3 +1,4 @@
+📄 License: [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/)
 
 # Nobita
 
@@ -24,5 +25,3 @@ npm install
 
 # Chạy script chính (ví dụ)
 node Scripts/Speed_Test_Master.js
-
-📄 License: [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/)
