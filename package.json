@@ -1,0 +1,35 @@
+{
+  "name": "nobita-3d-character",
+  "version": "1.0.0",
+  "description": "3D Character Figure Scene Generator for Nobita Repository",
+  "main": "Scripts/3D_Character_Scene.js",
+  "scripts": {
+    "start": "node -e \"console.log('Open 3D_Character/index.html in a web browser to view the 3D scene')\"",
+    "serve": "python3 -m http.server 8000",
+    "serve-node": "npx http-server .",
+    "test": "echo \"Tests will be added for 3D scene validation\" && exit 0"
+  },
+  "keywords": [
+    "3d",
+    "character",
+    "threejs",
+    "blender",
+    "modeling",
+    "javascript"
+  ],
+  "author": "Nobita Repository",
+  "license": "CC-BY-NC-ND-4.0",
+  "dependencies": {},
+  "devDependencies": {},
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "directories": {
+    "scripts": "Scripts",
+    "modules": "Module"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DungHoang120401/Nobita.git"
+  }
+}
