@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Character Demo - Nobita Repository</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f0f0f0;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .demo-container {
+            display: flex;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .scene-container {
+            flex: 2;
+            height: 600px;
+            border: 2px solid #333;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #2c2c2c;
+        }
+        .info-panel {
+            flex: 1;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .feature-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .feature-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .feature-list li:before {
+            content: "✓ ";
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        .controls {
+            margin-top: 20px;
+        }
+        .control-row {
+            margin: 10px 0;
+        }
+        label {
+            display: inline-block;
+            width: 100px;
+        }
+        input[type="range"] {
+            width: 150px;
+        }
+        button {
+            padding: 8px 15px;
+            margin: 5px 0;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        .status {
+            margin-top: 20px;
+            padding: 10px;
+            background: #e8f5e8;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Nobita 3D Character Figure Scene</h1>
+        <p>Interactive 3D character figure with round plastic base, box display, and computer showing Blender process</p>
+    </div>
+
+    <div class="demo-container">
+        <div id="character-scene-container" class="scene-container">
+            <!-- 3D scene will be rendered here -->
+        </div>
+        
+        <div class="info-panel">
+            <h3>Scene Features</h3>
+            <ul class="feature-list">
+                <li>3D Character Figure</li>
+                <li>Round Plastic Base</li>
+                <li>Box with Printed Image</li>
+                <li>Computer Display</li>
+                <li>Blender Modeling Process</li>
+                <li>Indoor Scene Setup</li>
+                <li>Realistic Lighting</li>
+                <li>Interactive Controls</li>
+            </ul>
+            
+            <div class="controls">
+                <h4>Scene Controls</h4>
+                <div class="control-row">
+                    <label>Lighting:</label>
+                    <input type="range" id="lightControl" min="0.1" max="2.0" step="0.1" value="1.0">
+                </div>
+                <button onclick="resetView()">Reset Camera View</button>
+                <button onclick="toggleWireframe()">Toggle Wireframe</button>
+                <button onclick="exportScene()">Export Scene Data</button>
+            </div>
+            
+            <div id="status" class="status">
+                Loading 3D scene...
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="../Scripts/3D_Character_Scene.js"></script>
+    <script>
+        let sceneGenerator;
+        
+        // Initialize the scene
+        function initializeScene() {
+            sceneGenerator = Object.create(CharacterSceneGenerator);
+            const success = sceneGenerator.init('character-scene-container');
+            
+            if (success) {
+                document.getElementById('status').textContent = '3D scene loaded successfully!';
+                setupControls();
+            } else {
+                document.getElementById('status').textContent = 'Failed to load 3D scene.';
+            }
+        }
+        
+        // Setup interactive controls
+        function setupControls() {
+            // Lightning control
+            document.getElementById('lightControl').addEventListener('input', (e) => {
+                const intensity = parseFloat(e.target.value);
+                sceneGenerator.updateLighting(intensity);
+            });
+            
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                if (sceneGenerator && sceneGenerator.renderer && sceneGenerator.camera) {
+                    const container = document.getElementById('character-scene-container');
+                    sceneGenerator.camera.aspect = container.clientWidth / container.clientHeight;
+                    sceneGenerator.camera.updateProjectionMatrix();
+                    sceneGenerator.renderer.setSize(container.clientWidth, container.clientHeight);
+                }
+            });
+        }
+        
+        // Control functions
+        function resetView() {
+            if (sceneGenerator && sceneGenerator.camera) {
+                sceneGenerator.camera.position.set(5, 3, 8);
+                sceneGenerator.camera.lookAt(0, 1, 0);
+                updateStatus('Camera view reset');
+            }
+        }
+        
+        function toggleWireframe() {
+            if (sceneGenerator && sceneGenerator.scene) {
+                sceneGenerator.scene.traverse((child) => {
+                    if (child instanceof THREE.Mesh && child.material) {
+                        child.material.wireframe = !child.material.wireframe;
+                    }
+                });
+                updateStatus('Wireframe mode toggled');
+            }
+        }
+        
+        function exportScene() {
+            if (sceneGenerator) {
+                const sceneData = sceneGenerator.exportSceneData();
+                console.log('Scene Data:', sceneData);
+                updateStatus('Scene data exported to console');
+            }
+        }
+        
+        function updateStatus(message) {
+            document.getElementById('status').textContent = message;
+            setTimeout(() => {
+                document.getElementById('status').textContent = '3D scene loaded successfully!';
+            }, 2000);
+        }
+        
+        // Initialize when page loads
+        window.addEventListener('load', () => {
+            // Small delay to ensure Three.js is loaded
+            setTimeout(initializeScene, 100);
+        });
+    </script>
+</body>
+</html>
