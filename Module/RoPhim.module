@@ -1,0 +1,8 @@
+#!name=RoPhim RoX
+#!desc=Unlock RoX (RoTeam)
+
+[Script]
+http-response ^https?:\/\/api\.rofilm\.net\/api\/app\/v1\/(?:auth\/(?:register|login)|user\/info)$ script-path=https://raw.githubusercontent.com/DungHoang120401/Nobita/refs/heads/main/Scripts/rophim.js, requires-body=true, max-size=-1
+
+[MITM]
+hostname = api.rofilm.net
